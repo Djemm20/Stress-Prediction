@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 # read dataset
 data = pd.read_csv('data.csv')
@@ -61,12 +61,16 @@ predictions = model.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
 precision = precision_score(y_test, predictions)
 recall = recall_score(y_test, predictions)
+f1 = f1_score(y_test, predictions)
+cm = confusion_matrix(y_test, predictions)
 
 print('Accuracy:', accuracy)
 print('Precision:', precision)
 print('Recall:', recall)
+print('F1 score:', f1)
+print(cm)
 
-plt.bar(['accuracy', 'precision', 'recall'], [accuracy, precision, recall])
+plt.bar(['accuracy', 'precision', 'recall', 'f1_score'], [accuracy, precision, recall, f1])
 plt.xlabel('Metric')
 plt.ylabel('Score')
 plt.show()
